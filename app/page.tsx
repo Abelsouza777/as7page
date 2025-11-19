@@ -125,7 +125,7 @@ const PageContent = () => {
       <main className="flex-grow max-w-7xl mx-auto p-8 sm:p-10 w-full">
         
         <h2 className="text-4xl font-extrabold mb-10 text-center text-gray-900 dark:text-gray-50">
-          Nossos Serviços e Projetos
+          Eficiência Para os Melhores Resultados.
         </h2>
 
         {/* Layout 2x2: 4 campos (2 em cima, 2 embaixo) */}
