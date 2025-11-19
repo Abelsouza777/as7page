@@ -6,7 +6,7 @@ const PageContent = () => {
   // 1. Lógica do Menu Mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  // 2. Lógica do Formulário (NOVO)
+  // 2. Lógica do Formulário
   const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
@@ -18,10 +18,8 @@ const PageContent = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Função para atualizar os inputs do formulário (NOVO)
-  /** * @param {any} e 
-   */
-  const handleChange = (e) => {
+  // CORREÇÃO AQUI: Adicionado ': any' para satisfazer o TypeScript
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -29,10 +27,8 @@ const PageContent = () => {
     }));
   };
 
-  // Função para enviar para o WhatsApp (NOVO)
-  /** * @param {any} e 
-   */
-  const enviarWhatsapp = (e) => {
+  // CORREÇÃO AQUI: Adicionado ': any' para satisfazer o TypeScript
+  const enviarWhatsapp = (e: any) => {
     e.preventDefault();
     
     if(!formData.nome || !formData.telefone) {
@@ -46,21 +42,21 @@ const PageContent = () => {
                   `*Mensagem:* ${formData.mensagem}`;
 
     // Formatação da URL
-    const numero = "5545999799513"; // Seu número com DDI (55) e DDD (45)
+    const numero = "5545999799513"; 
     const url = `https://wa.me/${numero}?text=${texto}`;
 
     window.open(url, '_blank');
   };
 
-  // Ícones SVG
-  const MenuIcon = ({ ...restProps }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...restProps}>
+  // Ícones SVG (Tipagem explicita ou any nos props)
+  const MenuIcon = (props: any) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...props}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 15.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 20.25a.75.75 0 110-1.5.75.75 0 010 1.5z" />
     </svg>
   );
 
-  const CloseIcon = ({ ...restProps }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...restProps}>
+  const CloseIcon = (props: any) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...props}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   );
