@@ -149,10 +149,10 @@ const PageContent = () => {
           {/* CAMPO 2 (Superior Direito) */}
           <section className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-teal-500">
             <h3 className="text-xl font-semibold mb-3 text-teal-600 dark:text-teal-400">
-              Gestão de Obras
+              Engenharia de Segurança do Trabalho
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Supervisão completa, garantindo a execução dentro do prazo e orçamento, com total aderência às normas técnicas de segurança e qualidade.
+              Gestão completa da segurança do trabalho com auditorias constantes e adequações com certificações dentro do padrão das NR's para que o seu time e o ambiente estejam sempre seguros.
             </p>
               <div className="mt-4 h-32 bg-gray-200 dark:bg-zinc-700 rounded-lg flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
                 [Imagem de canteiro de obras]
