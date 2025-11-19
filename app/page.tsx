@@ -19,7 +19,7 @@ const PageContent = () => {
   };
 
   // Função para atualizar os inputs do formulário (NOVO)
-  /** * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e 
+  /** * @param {any} e 
    */
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +30,7 @@ const PageContent = () => {
   };
 
   // Função para enviar para o WhatsApp (NOVO)
-  /** * @param {React.FormEvent} e 
+  /** * @param {any} e 
    */
   const enviarWhatsapp = (e) => {
     e.preventDefault();
@@ -163,7 +163,7 @@ const PageContent = () => {
             </div>
           </section>
 
-          {/* CAMPO 3 (Inferior Esquerdo) - AGORA É O FORMULÁRIO */}
+          {/* CAMPO 3 (Inferior Esquerdo) - FORMULÁRIO */}
           <section className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-indigo-500">
             <h3 className="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">
               Fale Conosco Agora
@@ -210,7 +210,7 @@ const PageContent = () => {
                   onChange={handleChange}
                   maxLength={300}
                   placeholder="Como podemos ajudar?"
-                  rows={3} // CORREÇÃO AQUI: Usando chaves {} para passar número
+                  rows={3}
                   className="w-full p-2 rounded-md border border-gray-300 dark:border-zinc-600 bg-gray-50 dark:bg-zinc-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none resize-none transition"
                 />
               </div>
