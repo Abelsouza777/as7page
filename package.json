@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy":"git pull && npm install && next build && pm2 restart as7-page"
   },
   "dependencies": {
     "react": "19.2.0",
