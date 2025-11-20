@@ -1,8 +1,36 @@
 "use client";
 import React, { useState } from 'react';
 
-// Componente principal para a sua página.
-const PageContent = () => {
+// =================================================================
+// Ícones e Dados de Navegação (Mantenha estas funções fora do componente principal)
+// =================================================================
+
+// Ícones SVG
+const MenuIcon = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 15.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 20.25a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+  </svg>
+);
+
+const CloseIcon = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...props}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
+
+// Dados de navegação
+const navItems = [
+  { name: "Sobre", href: "#sobre" },
+  { name: "NR35", href: "/linhadevida" }, // <--- NOVO ITEM MANTIDO
+  { name: "Contato", href: "#contato" },
+];
+
+// =================================================================
+// COMPONENTE PRINCIPAL (Voltou ao nome original se estava em outro arquivo)
+// =================================================================
+
+export default function LinhaDeVidaPage() {
+
   // 1. Lógica do Menu Mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -18,7 +46,7 @@ const PageContent = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // CORREÇÃO AQUI: Adicionado ': any' para satisfazer o TypeScript
+  // Lógica para atualizar o formulário
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -27,7 +55,7 @@ const PageContent = () => {
     }));
   };
 
-  // CORREÇÃO AQUI: Adicionado ': any' para satisfazer o TypeScript
+  // Lógica de envio para o WhatsApp
   const enviarWhatsapp = (e: any) => {
     e.preventDefault();
     
@@ -48,24 +76,6 @@ const PageContent = () => {
     window.open(url, '_blank');
   };
 
-  // Ícones SVG (Tipagem explicita ou any nos props)
-  const MenuIcon = (props: any) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 15.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 20.25a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-    </svg>
-  );
-
-  const CloseIcon = (props: any) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-
-  // Dados de navegação
-  const navItems = [
-    { name: "Sobre", href: "#sobre" },
-    { name: "Contato", href: "#contato" },
-  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-zinc-900 text-gray-800 dark:text-gray-100 font-sans">
@@ -78,7 +88,7 @@ const PageContent = () => {
           <a href="#" className="flex items-center" aria-label="AS7 Engenharia - Início">
             <h1 className="text-2xl font-bold text-white flex items-center"> 
               <img
-                src="/as7.png"
+                src="/as7.png" 
                 alt="Logo da AS7 Engenharia" 
                 width={120} 
                 height={40} 
@@ -249,6 +259,4 @@ const PageContent = () => {
       </footer>
     </div>
   );
-};
-
-export default PageContent;
+}
