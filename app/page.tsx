@@ -22,6 +22,7 @@ const CloseIcon = (props: any) => (
 const navItems = [
   { name: "Sobre", href: "#sobre" },
   { name: "NR35", href: "/linhadevida" }, // <--- NOVO ITEM MANTIDO
+  { name: "Psicossocial", href: "/psicossocial" },
   { name: "Contato", href: "#contato" },
 ];
 
