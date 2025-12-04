@@ -116,7 +116,7 @@ interface FormDataState {
   mensagem: string;
 }
 
-export default function LinhaDeVidaPage() {
+export default function As7Page() {
 
   // 1. Lógica do Menu Mobile
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -254,17 +254,17 @@ export default function LinhaDeVidaPage() {
               Saúde e Segurança do Trabalho
             </h3>
             <p className="text-gray-600 dark:text-gray-400 text-justify">
-             Sua segurança é nosso projeto! Entregamos soluções SST 360°, garantindo que sua operação esteja não apenas em conformidade, mas à frente em excelência e prevenção. Nossa engenharia de segurança é completa, do GRO à adequação de máquinas.
+             PCMSO, PGR, LTCAT, Exames Laborais e Avaliação Psicossociale e envio ao eSocial. Garanta a segurança e conformidade da sua empresa com quem entende. Fale conosco e proteja sua equipe!
             </p>
             <div className="mt-4 h-32 bg-gray-200 dark:bg-zinc-700 rounded-lg flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
               <img
-                  src="/sst1.png"
+                  src="/docsst.png"
                   alt="Ilustração inteligente sobre Saúde e Segurança do Trabalho (SST), mostrando treinamento, certificação, laudos e linhas de vida." 
                   // Usamos w-full para preencher a largura e h-auto para manter a proporção
-                  className="w-full h-auto object-cover" 
+                  className="w-full h-auto object-cover lg:w-3/4 lg:mx-auto rounded-xl" 
                   // Definimos dimensões intrínsecas (largura/altura) para evitar CLS (Cumulative Layout Shift)
-                  width={500} 
-                  height={300} 
+                  width={417} 
+                  height={250} 
               />
             </div>
           </section>
@@ -272,13 +272,21 @@ export default function LinhaDeVidaPage() {
           {/* CAMPO 2 (Superior Direito) */}
           <section className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-teal-500">
             <h3 className="text-xl font-semibold mb-3 text-teal-600 dark:text-teal-400">
-              Engenharia de Segurança
+              Trabalho em Altura: Engenharia na sua Segurança
             </h3>
             <p className="text-gray-600 dark:text-gray-400 text-justify">
-              Gestão completa da segurança do trabalho com auditorias constantes e adequações com certificações dentro do padrão das NR's.
+              Nossas linhas de vida garantem proteção total. Instalação, inspeção e certificação para sua tranquilidade e conformidade. soluções conforme a necessidade, seja para caminhão, obra ou agro.
             </p>
               <div className="mt-4 h-32 bg-gray-200 dark:bg-zinc-700 rounded-lg flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
-                [Imagem de canteiro de obras]
+                 <img
+                  src="/nr351.png"
+                  alt="Ilustração inteligente sobre Saúde e Segurança do Trabalho (SST), mostrando treinamento, certificação, laudos e linhas de vida." 
+                  // Usamos w-full para preencher a largura e h-auto para manter a proporção
+                  className="w-full h-auto object-cover lg:w-3/4 lg:mx-auto rounded-xl" 
+                  // Definimos dimensões intrínsecas (largura/altura) para evitar CLS (Cumulative Layout Shift)
+                  width={417} 
+                  height={250} 
+              />
             </div>
           </section>
 
@@ -351,13 +359,25 @@ export default function LinhaDeVidaPage() {
           {/* CAMPO 4 (Inferior Direito) */}
           <section id="contato" className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-amber-500">
             <h3 className="text-xl font-semibold mb-3 text-rose-600 dark:text-rose-400">
-              Planejamento Estratégico
+              Gestão total de SST 
             </h3>
             <p className="text-gray-600 dark:text-gray-400 text-justify">
-              Desenvolvemos soluções personalizadas para otimizar o ciclo de vida dos seus projetos de engenharia. Foco em eficiência e inovação.
+             Oferecemos um serviço de Gestão de Segurança e Saúde Ocupacional (SSO) completo, cobrindo todas as necessidades da sua empresa:
+              Monitoramento Ativo: Auditoria constante e controle rigoroso das datas de treinamentos e exames periódicos.
+              Gestão de Recursos: Planejamento e controle da distribuição de EPIs (Equipamentos de Proteção Individual).
+              Documentação Impecável: Garantia de que toda a documentação e conformidade legal de segurança do trabalho esteja sempre organizada e em dia.
+              Nós fazemos a gestão completa da segurança do seu pessoal, garantindo a proteção da sua equipe e a tranquilidade da sua empresa.
             </p>
               <div className="mt-4 h-32 bg-gray-200 dark:bg-zinc-700 rounded-lg flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
-                [Imagem de modelo BIM]
+                 <img
+                  src="/gcomp.png"
+                  alt="gestão completa em SST" 
+                  // Usamos w-full para preencher a largura e h-auto para manter a proporção
+                  className="w-full h-auto object-cover lg:w-3/4 lg:mx-auto rounded-xl" 
+                  // Definimos dimensões intrínsecas (largura/altura) para evitar CLS (Cumulative Layout Shift)
+                  width={417} 
+                  height={250} 
+              />
             </div>
           </section>
 
@@ -370,6 +390,41 @@ export default function LinhaDeVidaPage() {
           &copy; {new Date().getFullYear()} todos os direitos reservados. **AS7 ENGENHARIA**
         </p>
       </footer>
+      {/* BOTÃO WHATSAPP FLUTUANTE */}
+<a
+  href="https://wa.me/5545999799513"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    fixed
+    bottom-5
+    right-5
+    bg-green-500
+    hover:bg-green-600
+    text-white
+    w-14
+    h-14
+    rounded-full
+    shadow-xl
+    flex
+    items-center
+    justify-center
+    transition
+    duration-300
+    z-50
+  "
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="28"
+    height="28"
+    fill="currentColor"
+    viewBox="0 0 16 16"
+  >
+    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/>
+  </svg>
+</a>
+
     </div>
   );
 }
