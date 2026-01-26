@@ -2,216 +2,126 @@
 import React, { useState } from 'react';
 
 // =================================================================
-// Ícones e Dados - AS7 ENGENHARIA
+// DADOS DOS SERVIÇOS - AS7 ENGENHARIA
 // =================================================================
-
-const MenuIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
-
-const navItems = [
-  { name: "Início", href: "#" },
-  { name: "Serviços", href: "#servicos" },
-  { name: "Contato", href: "#contato" },
-];
 
 const servicos = [
-  {
-    titulo: "Treinamentos de NR",
-    desc: "Capacitação completa e certificada para NR 06, 10, 12, 31, 33 e 35.",
-    icon: "🎓"
-  },
-  {
-    titulo: "Documentação Técnica",
-    desc: "Elaboração de PCMSO, PGR e LTCAT com rigor técnico e legal.",
-    icon: "📄"
-  },
-  {
-    titulo: "Engenharia de Linha de Vida",
-    desc: "Projetos, instalação e certificação de sistemas de linha de vida.",
-    icon: "🏗️"
-  },
-  {
-    titulo: "Adequação NR 12",
-    desc: "Laudos, avaliações e adequação completa de máquinas às normas vigentes.",
-    icon: "⚙️"
-  },
-  {
-    titulo: "Avaliação Psicossocial",
-    desc: "Realização e adequação de avaliações psicossociais para trabalhadores.",
-    icon: "🧠"
-  },
-  {
-    titulo: "Consultoria e Assessoria",
-    desc: "Suporte especializado em Engenharia de Segurança do Trabalho em geral.",
-    icon: "🛡️"
-  }
+  { id: 1, nome: "Treinamentos NR 06, 10, 12, 31, 33 e 35", icon: "🎓" },
+  { id: 2, nome: "PCMSO, PGR e LTCAT", icon: "📄" },
+  { id: 3, nome: "Avaliação Psicossocial (NR 01)", icon: "🧠"  },
+  { id: 4, nome: "Adequação de Máquinas (NR 12) e Laudos", icon: "⚙️" },
+  { id: 5, nome: "Engenharia de Linha de Vida", icon: "🏗️"},
+  { id: 6, nome: "Consultoria e Assessoria em Segurança", icon: "🛡️" },
+  { id: 7, nome: "Engenharia de Segurança do Trabalho em Geral", icon: "👷" },
 ];
 
-// =================================================================
-// COMPONENTE PRINCIPAL
-// =================================================================
+export default function CartaoDigitalAS7() {
+  const [formData, setFormData] = useState({ nome: '', telefone: '' });
 
-export default function ServicosEngenhariaPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({ nome: '', telefone: '', mensagem: '' });
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  // CORREÇÃO: Tipando o evento de mudança (onChange)
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // CORREÇÃO: Tipando o evento de submissão (onSubmit)
-  const enviarWhatsapp = (e: React.FormEvent<HTMLFormElement>) => {
+  const enviarWhatsapp = (e: React.FormEvent) => {
     e.preventDefault();
-    if(!formData.nome || !formData.telefone) {
-        alert("Por favor, preencha nome e telefone.");
-        return;
+    if (!formData.nome || !formData.telefone) {
+      alert("Por favor, preencha nome e telefone.");
+      return;
     }
-    const texto = `*Interesse em Serviços - AS7*%0A%0A` +
-                  `*Nome:* ${formData.nome}%0A` +
-                  `*Telefone:* ${formData.telefone}%0A` +
-                  `*Mensagem:* ${formData.mensagem}`;
+    const texto = `*CONTATO VIA CARTÃO DIGITAL - AS7*%0A%0A` +
+      `*Nome:* ${formData.nome}%0A` +
+      `*Telefone:* ${formData.telefone}%0A` +
+      `*Assunto:* Gostaria de um orçamento especializado.`;
 
-    const numero = "5545999799513"; 
+    const numero = "5545999799513";
     window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-zinc-900 text-gray-800 dark:text-gray-100 font-sans scroll-smooth">
-
-      {/* 1. CABEÇALHO */}
-      <header className="sticky top-0 z-50 w-full bg-slate-900 shadow-2xl border-b border-amber-600/20">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <a href="#" className="flex items-center">
-            <img src="/as7.png" alt="Logo AS7" width={110} height={35} className="rounded" />
-          </a>
-          
-          <nav className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <a key={item.name} href={item.href} className="text-slate-200 hover:text-amber-500 transition font-bold uppercase text-xs tracking-widest">
-                {item.name}
-              </a>
-            ))}
-          </nav>
-
-          <button onClick={toggleMenu} className="md:hidden text-amber-500 p-2">
-            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
-        </div>
-
-        <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-slate-900 border-t border-slate-800`}>
-          <nav className="px-4 pt-2 pb-6 space-y-2">
-            {navItems.map((item) => (
-              <a key={item.name} href={item.href} onClick={toggleMenu} className="block py-4 text-slate-200 border-b border-slate-800 font-semibold uppercase text-sm">
-                {item.name}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      <main className="flex-grow max-w-7xl mx-auto px-6 py-12 w-full">
+    <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col items-center justify-center p-4 selection:bg-amber-500 selection:text-black">
+      
+      {/* Container Principal Estilo Cartão Premium */}
+      <main className="w-full max-w-md bg-zinc-900/50 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl backdrop-blur-sm">
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900 dark:text-white uppercase tracking-tight">
-            AS7 <span className="text-amber-600">Engenharia</span>
-          </h2>
-          <div className="h-1.5 w-32 bg-amber-600 mx-auto rounded-full"></div>
-          <p className="mt-6 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Soluções completas em Engenharia de Segurança e adequação normativa.
-          </p>
-        </div>
+        {/* Cabeçalho com SUA LOGO */}
+        <header className="pt-12 pb-8 px-8 flex flex-col items-center">
+          <div className="mb-8 hover:scale-105 transition-transform duration-500">
+             {/* AQUI VOCÊ INSERE SUA LOGO */}
+            <img 
+              src="/as7.png" 
+              alt="AS7 Engenharia" 
+              className="h-20 w-auto object-contain" 
+            />
+          </div>
 
-        {/* 2. GRID DE SERVIÇOS */}
-        <section id="servicos" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-          {servicos.map((servico, index) => (
-            <div 
-              key={index} 
-              className="bg-white dark:bg-zinc-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-700 hover:border-amber-500 transition-all duration-300 group hover:-translate-y-2"
-            >
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {servico.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-slate-800 dark:text-white">
-                {servico.titulo}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                {servico.desc}
-              </p>
-            </div>
-          ))}
+          <div className="text-center space-y-2">
+            <h1 className="text-sm font-bold tracking-[0.3em] text-amber-500 uppercase">
+              Segurança • Engenharia • Conformidade
+            </h1>
+            <p className="text-zinc-400 text-xs uppercase tracking-widest">Toledo - PR e Região</p>
+          </div>
+        </header>
+
+        {/* Botão de Ação Principal (Estilo Opção 3) */}
+        <section className="px-8 mb-10">
+          <button 
+            onClick={() => document.getElementById('form-contato')?.scrollIntoView({behavior: 'smooth'})}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-black font-black py-5 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.3)] uppercase tracking-tighter text-lg flex items-center justify-center gap-3"
+          >
+            Solicitar Orçamento
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+            </svg>
+          </button>
         </section>
 
-        {/* 3. SEÇÃO DE CONTATO */}
-        <section id="contato" className="relative overflow-hidden bg-slate-900 rounded-3xl shadow-2xl border border-slate-700">
-          <div className="grid md:grid-cols-2 gap-12 p-8 md:p-16 relative z-10">
-            <div>
-              <h3 className="text-3xl font-bold text-white mb-6">
-                Solicite um orçamento especializado
-              </h3>
-              <p className="text-slate-400 text-lg mb-8">
-                Estamos prontos para atender sua demanda técnica com agilidade e total conformidade legal.
-              </p>
-              <div className="flex items-center gap-3 text-amber-500">
-                 <span className="bg-amber-500/10 p-2 rounded-full">📍</span>
-                 <span className="text-white">Toledo e Região - PR</span>
-              </div>
-            </div>
+        {/* Lista de Serviços Minimalista */}
+        <section className="px-8 pb-10">
+          <h2 className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border-b border-white/5 pb-2">
+            Nossas Especialidades
+          </h2>
+          <ul className="space-y-5">
+            {servicos.map((s) => (
+              <li key={s.id} className="flex items-start gap-4 group cursor-default">
+                <span className="text-xl group-hover:scale-125 transition-transform duration-300">{s.icon}</span>
+                <span className="text-sm text-zinc-300 group-hover:text-white transition-colors duration-300 font-medium leading-tight">
+                  {s.nome}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-            <form onSubmit={enviarWhatsapp} className="flex flex-col gap-4 bg-white/5 p-6 rounded-2xl backdrop-blur-sm border border-white/10">
-              <input
-                type="text"
-                name="nome"
-                value={formData.nome}
-                onChange={handleChange}
-                placeholder="Seu Nome*"
-                className="w-full p-4 rounded-xl bg-slate-800 text-white focus:ring-2 focus:ring-amber-500 outline-none"
-                required
-              />
-              <input
-                type="tel"
-                name="telefone"
-                value={formData.telefone}
-                onChange={handleChange}
-                placeholder="WhatsApp*"
-                className="w-full p-4 rounded-xl bg-slate-800 text-white focus:ring-2 focus:ring-amber-500 outline-none"
-                required
-              />
-              <textarea
-                name="mensagem"
-                value={formData.mensagem}
-                onChange={handleChange}
-                placeholder="Como podemos ajudar?"
-                rows={3}
-                className="w-full p-4 rounded-xl bg-slate-800 text-white focus:ring-2 focus:ring-amber-500 outline-none resize-none"
-              />
-              <button
-                type="submit"
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-widest shadow-xl"
-              >
-                <span>Falar com Especialista</span>
-              </button>
-            </form>
-          </div>
+        {/* Formulário de Lead Rápido */}
+        <section id="form-contato" className="bg-white/5 p-8 border-t border-white/10">
+          <form onSubmit={enviarWhatsapp} className="space-y-4">
+            <input
+              type="text"
+              name="nome"
+              placeholder="Seu Nome"
+              onChange={handleChange}
+              className="w-full bg-zinc-800/50 border border-white/10 rounded-xl p-4 text-sm focus:border-amber-500 focus:outline-none transition-all"
+              required
+            />
+            <input
+              type="tel"
+              name="telefone"
+              placeholder="Seu WhatsApp"
+              onChange={handleChange}
+              className="w-full bg-zinc-800/50 border border-white/10 rounded-xl p-4 text-sm focus:border-amber-500 focus:outline-none transition-all"
+              required
+            />
+            <button className="w-full bg-zinc-100 hover:bg-white text-black font-bold py-4 rounded-xl text-sm transition-all uppercase tracking-widest">
+              Enviar Mensagem
+            </button>
+          </form>
         </section>
       </main>
 
-      <footer className="w-full bg-slate-950 text-center py-8 border-t border-slate-900">
-        <p className="text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} AS7 ENGENHARIA. Todos os direitos reservados.
-        </p>
+      {/* Rodapé Simples */}
+      <footer className="mt-8 text-zinc-600 text-[10px] uppercase tracking-[0.3em] font-medium">
+        AS7 Engenharia © {new Date().getFullYear()}
       </footer>
     </div>
   );
