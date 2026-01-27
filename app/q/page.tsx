@@ -18,7 +18,7 @@ const qrCodes = [
   { id: 1, src: "/psico.png", titulo: "Avaliação Psicossocial" },
   { id: 2, src: "/cartao.png", titulo: "Cartão Virtual" },
   { id: 3, src: "/treinamento.png", titulo: "Treinamentos NR" },
-  { id: 4, src: "/site.jpg", titulo: "Página" },
+  { id: 4, src: "/site.png", titulo: "Página" },
   { id: 5, src: "/linhadevida.png", titulo: "Linhas de Vida" },
   { id: 6, src: "/engenharia.png", titulo: "Soluções em Projetos" },
   { id: 7, src: "/ambiental.png", titulo: "Soluções Ambientais" },
