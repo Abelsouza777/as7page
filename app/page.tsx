@@ -1,6 +1,26 @@
 "use client";
 import React, { useState } from 'react';
-
+// parte do SEO do google
+export const metadata = {
+  title: 'AS7 Engenharia | Segurança do Trabalho e Consultoria NR',
+  description: 'Especialistas em Treinamentos de NRs (35, 12, 10), adequação NR12, Linhas de Vida e Gestão de SST em Toledo e região. LTCAT, PGR, PCMSO.',
+  keywords: 'Segurança do Trabalho, NR12, NR35, NR33, Engenharia, Toledo, Cascavel, Marechal Candido Rondon, Palotina Paraná, PGR, eSocial, AS7 Engenharia',
+  openGraph: {
+    title: 'AS7 Engenharia | Soluções em Segurança do Trabalho',
+    description: 'Protegendo sua empresa com engenharia de alta performance.',
+    url: 'https://as7engenharia.com.br', // Substitua pelo seu link da Vercel ou domínio próprio
+    siteName: 'AS7 Engenharia',
+    images: [
+      {
+        url: '/as7logo.png', // Logo que aparece quando compartilha no WhatsApp
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: 'pt_BR',
+    type: 'website',
+  },
+};
 // =================================================================
 // Ícones e Dados de Navegação
 // =================================================================
