@@ -27,7 +27,7 @@ const SERVICES: Service[] = [
 export default function ProfessionalAs7Site() {
   const [formData, setFormData] = useState({ nome: '', telefone: '', mensagem: '' });
   const [typedText, setTypedText] = useState("");
-  const fullText = "Segurança, Engenharia e Conformidade.";
+  const fullText = "Engenharia e Conformidade.";
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function ProfessionalAs7Site() {
               Excelência Técnica em SST
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6">
-              Onde a Engenharia encontra a <br />
+              Onde a Segurança do trabalho encontra a <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500 italic">
                 {typedText}
               </span>
