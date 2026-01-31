@@ -1,128 +1,135 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 
 // =================================================================
-// DADOS DOS SERVIÇOS - AS7 ENGENHARIA
+// 1. COMPONENTE DO CARTÃO (DEFINIDO NO MESMO ARQUIVO)
 // =================================================================
+const DigitalBusinessCard = () => {
+  const [fullUrl, setFullUrl] = useState("");
 
-const servicos = [
-  { id: 1, nome: "Treinamentos NR 06, 10, 12, 31, 33 e 35", icon: "🎓" },
-  { id: 2, nome: "PCMSO, PGR e LTCAT", icon: "📄" },
-  { id: 3, nome: "Avaliação Psicossocial (NR 01)", icon: "🧠"  },
-  { id: 4, nome: "Adequação de Máquinas (NR 12) e Laudos", icon: "⚙️" },
-  { id: 5, nome: "Engenharia de Linha de Vida", icon: "🏗️"},
-  { id: 6, nome: "Consultoria e Assessoria em Segurança", icon: "🛡️" },
-  { id: 7, nome: "Engenharia de Segurança do Trabalho em Geral", icon: "👷" },
-];
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setFullUrl(`${window.location.origin}/api/vcard`);
+    }
+  }, []);
 
+  return (
+    <div className="flex flex-col items-center justify-center p-6 bg-white">
+      <div className="relative w-full max-w-sm bg-zinc-800 rounded-3xl shadow-2xl overflow-hidden border border-zinc-700">
+        <div className="h-24 bg-gradient-to-r from-amber-500 to-amber-600 relative">
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="w-20 h-20 rounded-full border-4 border-zinc-800 bg-white flex items-center justify-center overflow-hidden">
+              <img src="/as7.png" alt="Logo AS7" className="w-full h-full object-contain p-2" 
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-xl font-bold text-amber-600">AS7</span>';
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-10 pb-6 px-6 text-center">
+          <h2 className="text-xl font-bold text-white">Abel Souza</h2>
+          <p className="text-amber-500 font-medium text-sm">AS7 Engenharia</p>
+          
+          <div className="mt-4 space-y-2 text-xs text-zinc-400">
+             <p>(45) 99979-9513</p>
+             <p>as7engenharia.com.br</p>
+          </div>
+
+          <a href="/api/vcard" className="mt-6 block w-full py-3 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-xl transition-colors">
+            Salvar Contato
+          </a>
+        </div>
+
+        <div className="bg-zinc-900 p-4 flex flex-col items-center border-t border-white/5">
+          <p className="text-[10px] text-zinc-500 mb-2 uppercase tracking-widest">QR Code de Contato</p>
+          <div className="p-2 bg-white rounded-lg">
+             {fullUrl && <QRCodeSVG value={fullUrl} size={100} />}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// =================================================================
+// 2. PÁGINA PRINCIPAL
+// =================================================================
 export default function CartaoDigitalAS7() {
   const [formData, setFormData] = useState({ nome: '', telefone: '' });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const servicos = [
+    { id: 1, nome: "Treinamentos NR 06, 10, 12, 31, 33 e 35", icon: "🎓" },
+    { id: 2, nome: "PCMSO, PGR e LTCAT", icon: "📄" },
+    { id: 3, nome: "Avaliação Psicossocial (NR 01)", icon: "🧠"  },
+    { id: 4, nome: "Adequação de Máquinas (NR 12) e Laudos", icon: "⚙️" },
+    { id: 5, nome: "Engenharia de Linha de Vida", icon: "🏗️"},
+    { id: 6, nome: "Consultoria e Assessoria em Segurança", icon: "🛡️" },
+    { id: 7, nome: "Engenharia de Segurança do Trabalho em Geral", icon: "👷" },
+  ];
 
   const enviarWhatsapp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.nome || !formData.telefone) {
-      alert("Por favor, preencha nome e telefone.");
-      return;
-    }
-    const texto = `*CONTATO VIA CARTÃO DIGITAL - AS7*%0A%0A` +
-      `*Nome:* ${formData.nome}%0A` +
-      `*Telefone:* ${formData.telefone}%0A` +
-      `*Assunto:* Gostaria de um orçamento especializado.`;
-
-    const numero = "5545999799513";
-    window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+    const texto = `*CONTATO VIA CARTÃO DIGITAL*%0A*Nome:* ${formData.nome}%0A*Telefone:* ${formData.telefone}`;
+    window.open(`https://wa.me/5545999799513?text=${texto}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col items-center justify-center p-4 selection:bg-amber-500 selection:text-black">
-      
-      {/* Container Principal Estilo Cartão Premium */}
-      <main className="w-full max-w-md bg-zinc-900/50 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl backdrop-blur-sm">
-        
-        {/* Cabeçalho com SUA LOGO */}
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center p-4">
+      <main className="w-full max-w-md bg-zinc-900/50 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl">
         <header className="pt-12 pb-8 px-8 flex flex-col items-center">
-          <div className="mb-8 hover:scale-105 transition-transform duration-500">
-             {/* AQUI VOCÊ INSERE SUA LOGO */}
-            <img 
-              src="/as7.png" 
-              alt="AS7 Engenharia" 
-              className="h-20 w-auto object-contain" 
-            />
-          </div>
-
-          <div className="text-center space-y-2">
-            <h1 className="text-sm font-bold tracking-[0.3em] text-amber-500 uppercase">
-              Segurança • Engenharia • Conformidade
-            </h1>
-            <p className="text-zinc-400 text-xs uppercase tracking-widest">Toledo - PR e Região</p>
-          </div>
+          <img src="/as7.png" alt="AS7" className="h-16 mb-6" />
+          <h1 className="text-sm font-bold text-amber-500 uppercase tracking-[0.2em]">Segurança • Engenharia</h1>
         </header>
 
-        {/* Botão de Ação Principal (Estilo Opção 3) */}
-        <section className="px-8 mb-10">
+        <section className="px-8 mb-8">
           <button 
             onClick={() => document.getElementById('form-contato')?.scrollIntoView({behavior: 'smooth'})}
-            className="w-full bg-amber-500 hover:bg-amber-400 text-black font-black py-5 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.3)] uppercase tracking-tighter text-lg flex items-center justify-center gap-3"
+            className="w-full bg-amber-500 text-black font-black py-4 rounded-2xl text-lg uppercase"
           >
             Solicitar Orçamento
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
-            </svg>
           </button>
         </section>
 
-        {/* Lista de Serviços Minimalista */}
         <section className="px-8 pb-10">
-          <h2 className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border-b border-white/5 pb-2">
-            Nossas Especialidades
-          </h2>
-          <ul className="space-y-5">
+          <h2 className="text-zinc-500 text-[10px] font-bold uppercase mb-4">Nossas Especialidades</h2>
+          <ul className="space-y-4">
             {servicos.map((s) => (
-              <li key={s.id} className="flex items-start gap-4 group cursor-default">
-                <span className="text-xl group-hover:scale-125 transition-transform duration-300">{s.icon}</span>
-                <span className="text-sm text-zinc-300 group-hover:text-white transition-colors duration-300 font-medium leading-tight">
-                  {s.nome}
-                </span>
+              <li key={s.id} className="flex items-center gap-3 text-sm text-zinc-300">
+                <span>{s.icon}</span> {s.nome}
               </li>
             ))}
           </ul>
         </section>
 
-        {/* Formulário de Lead Rápido */}
         <section id="form-contato" className="bg-white/5 p-8 border-t border-white/10">
           <form onSubmit={enviarWhatsapp} className="space-y-4">
             <input
               type="text"
-              name="nome"
               placeholder="Seu Nome"
-              onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-white/10 rounded-xl p-4 text-sm focus:border-amber-500 focus:outline-none transition-all"
+              onChange={(e) => setFormData({...formData, nome: e.target.value})}
+              className="w-full bg-zinc-800 border border-white/10 rounded-xl p-4 text-sm"
               required
             />
             <input
               type="tel"
-              name="telefone"
               placeholder="Seu WhatsApp"
-              onChange={handleChange}
-              className="w-full bg-zinc-800/50 border border-white/10 rounded-xl p-4 text-sm focus:border-amber-500 focus:outline-none transition-all"
+              onChange={(e) => setFormData({...formData, telefone: e.target.value})}
+              className="w-full bg-zinc-800 border border-white/10 rounded-xl p-4 text-sm"
               required
             />
-            <button className="w-full bg-zinc-100 hover:bg-white text-black font-bold py-4 rounded-xl text-sm transition-all uppercase tracking-widest">
-              Enviar Mensagem
-            </button>
+            <button className="w-full bg-white text-black font-bold py-4 rounded-xl uppercase">Enviar</button>
           </form>
         </section>
-      </main>
 
-      {/* Rodapé Simples */}
-      <footer className="mt-8 text-zinc-600 text-[10px] uppercase tracking-[0.3em] font-medium">
-        AS7 Engenharia © {new Date().getFullYear()}
-      </footer>
+        {/* CHAMADA DO COMPONENTE QUE ESTÁ NO MESMO ARQUIVO */}
+        <DigitalBusinessCard />
+
+      </main>
+      <footer className="mt-8 text-zinc-600 text-[10px] uppercase">AS7 Engenharia © 2026</footer>
     </div>
   );
 }
