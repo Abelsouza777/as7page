@@ -20,7 +20,7 @@ const DigitalBusinessCard = () => {
         <div className="h-24 bg-gradient-to-r from-amber-500 to-amber-600 relative">
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
             <div className="w-20 h-20 rounded-full border-4 border-zinc-800 bg-white flex items-center justify-center overflow-hidden">
-              <img src="/as7.png" alt="Logo AS7" className="w-full h-full object-contain p-2" 
+              <img src="/as7logo.png" alt="Logo AS7" className="w-full h-full object-contain p-2" 
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement!.innerHTML = '<span class="text-xl font-bold text-amber-600">AS7</span>';
