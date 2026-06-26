@@ -45,7 +45,7 @@ export default function SolucoesAmbientaisPage() {
       {/* HEADER */}
       <header className="sticky top-0 z-30 w-full bg-emerald-900 shadow-xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <img src="/as7.png" alt="AS7" width={100} height={40} />
+          <img src="/as7.png" alt="Logo da AS7 Engenharia | Engenharia Ambiental" width={100} height={40} />
           <nav className="hidden md:flex space-x-8 text-sm font-bold text-emerald-50 uppercase tracking-widest">
             <a href="#atribuicoes" className="hover:text-white">Atribuições</a>
             <a href="#estudos" className="hover:text-white">Estudos Técnicos</a>
@@ -135,7 +135,7 @@ export default function SolucoesAmbientaisPage() {
               </div>
               <div className="md:w-1/2 w-full">
                 <div className="bg-white dark:bg-zinc-800 p-4 rounded-3xl shadow-2xl">
-                  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800" alt="Natureza e Engenharia" className="rounded-2xl" />
+                  <img src="/ambiental.png" alt="Estudos de impacto ambiental e engenharia ambiental executados pela AS7 Engenharia" className="rounded-2xl" />
                 </div>
               </div>
             </div>

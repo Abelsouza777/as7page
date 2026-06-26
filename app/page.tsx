@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { SITE_URL, canonical } from "./lib/site";
 
 // =================================================================
 // Ícones e Dados de Navegação (MANTIDOS DO SEU CÓDIGO ORIGINAL)
@@ -105,44 +106,76 @@ const servicesList = [
   { icon: '👷', title: 'Engenharia de Segurança Geral', desc: 'Soluções completas para desafios complexos de segurança do trabalho.', color: 'purple' },
 ];
 
-// 2. Componente de Efeito de Digitação (Simples e leve)
-const TypingEffect = () => {
-  const words = ["SEGURANÇA.", "ENGENHARIA.", "CONFORMIDADE."];
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(150);
+// 2. Perguntas frequentes (FAQ) — origem única da seção visível e do FAQPage JSON-LD.
+const faqs = [
+  {
+    q: "O que é o PGR e quem precisa elaborar?",
+    a: "O PGR (Programa de Gerenciamento de Riscos) é o documento previsto na NR-01 que mapeia os riscos ocupacionais da empresa e define um plano de ação para controlá-los. Ele substituiu o antigo PPRA e deve ser mantido por toda empresa abrangida pelas Normas Regulamentadoras.",
+  },
+  {
+    q: "A AS7 Engenharia atende em quais regiões?",
+    a: "Atendemos empresas de todo o Brasil. Nossa base está no Paraná, mas atuamos de forma remota e in company em diversos estados para elaboração de laudos, PGR/PCMSO, treinamentos e projetos de linha de vida.",
+  },
+  {
+    q: "Quanto tempo leva para elaborar o PGR e o PCMSO?",
+    a: "O prazo varia conforme o porte e o número de cargos e setores, mas em geral entregamos o PGR e o PCMSO entre 5 e 15 dias úteis após a visita técnica e o envio das informações pela empresa.",
+  },
+  {
+    q: "Os treinamentos NR da AS7 possuem certificado válido?",
+    a: "Sim. Nossos treinamentos seguem a carga horária e o conteúdo das Normas Regulamentadoras e emitem certificado válido em todo o território nacional. Treinamentos como NR-33 e NR-35 exigem parte prática presencial obrigatória.",
+  },
+  {
+    q: "O que é a avaliação psicossocial da NR-01?",
+    a: "É o processo de identificação e gestão dos riscos psicossociais (estresse, sobrecarga, assédio, entre outros) previsto pela atualização da NR-01. A AS7 conduz a avaliação com profissionais habilitados para apoiar a conformidade e a saúde mental da equipe.",
+  },
+];
 
-  useEffect(() => {
-    const handleTyping = () => {
-      const fullText = words[currentWordIndex];
-      
-      if (isDeleting) {
-        setCurrentText(fullText.substring(0, currentText.length - 1));
-        setTypingSpeed(50); // Mais rápido para apagar
-      } else {
-        setCurrentText(fullText.substring(0, currentText.length + 1));
-        setTypingSpeed(150); // Velocidade normal de digitação
-      }
+// 3. Links internos para as páginas de serviço e blog (arquitetura multi-page).
+const internalLinks = [
+  { title: "Treinamentos NR", desc: "Capacitação presencial e online: NR-06, 10, 12, 31, 33 e 35.", href: "/treinamento" },
+  { title: "Linha de Vida (NR-35)", desc: "Projeto, instalação e inspeção de sistemas de ancoragem.", href: "/linhadevida" },
+  { title: "Avaliação Psicossocial", desc: "Gestão de riscos psicossociais conforme a NR-01.", href: "/psicossocial" },
+  { title: "Engenharia de Segurança", desc: "Soluções de engenharia e consultoria em SST.", href: "/engenharia" },
+  { title: "Soluções Ambientais", desc: "Engenharia ambiental, diagnósticos e regularização.", href: "/ambiental" },
+  { title: "Blog SST", desc: "Artigos técnicos sobre NRs, PGR, PCMSO, NR-12 e mais.", href: "/blog" },
+];
 
-      if (!isDeleting && currentText === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000); // Pausa antes de apagar
-      } else if (isDeleting && currentText === "") {
-        setIsDeleting(false);
-        setCurrentWordIndex((prev) => (prev + 1) % words.length);
-      }
-    };
+// 4. Dados estruturados (Schema.org): serviços oferecidos e FAQ.
+const seoServices = [
+  { name: "Treinamentos Normativos NR", desc: "Treinamentos NR-06, NR-10, NR-12, NR-31, NR-33 e NR-35 com certificado válido em todo o Brasil.", href: "/treinamento" },
+  { name: "PGR, PCMSO e LTCAT", desc: "Elaboração do Programa de Gerenciamento de Riscos, PCMSO e LTCAT.", href: "/" },
+  { name: "Avaliação Psicossocial (NR-01)", desc: "Identificação e gestão de riscos psicossociais no trabalho.", href: "/psicossocial" },
+  { name: "Adequação de Máquinas e Laudo NR-12", desc: "Laudos técnicos e projetos de adequação de máquinas conforme a NR-12.", href: "/" },
+  { name: "Projeto e Instalação de Linha de Vida", desc: "Sistemas de ancoragem para trabalho em altura (NR-35).", href: "/linhadevida" },
+  { name: "Engenharia de Segurança e Consultoria SST", desc: "Consultoria contínua em saúde e segurança do trabalho.", href: "/engenharia" },
+  { name: "Engenharia Ambiental", desc: "Diagnósticos, estudos e regularização ambiental.", href: "/ambiental" },
+];
 
-    const timer = setTimeout(handleTyping, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [currentText, isDeleting, currentWordIndex, words, typingSpeed]);
+const homeServicesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: seoServices.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Service",
+      name: s.name,
+      description: s.desc,
+      url: canonical(s.href),
+      provider: { "@id": `${SITE_URL}/#organization` },
+      areaServed: { "@type": "Country", name: "Brasil" },
+    },
+  })),
+};
 
-  return (
-    <span className="text-indigo-600 dark:text-indigo-400 font-bold">
-      {currentText}
-      <span className="animate-pulse ml-1">|</span>
-    </span>
-  );
+const homeFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 };
 
 // =================================================================
@@ -191,10 +224,10 @@ export default function As7PageModern() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex flex-col items-center"> 
             <a href="#" className="mb-1" aria-label="AS7 Engenharia - Início"> 
-              <h1 className="text-2xl font-bold text-white flex items-center">
-                <img src="/as7.png" alt="Logo da AS7 Engenharia" width={120} height={40} className="rounded-lg"/>
+              <span className="text-2xl font-bold text-white flex items-center">
+                <img src="/as7.png" alt="Logo da AS7 Engenharia | Gestão em SST" width={120} height={40} className="rounded-lg"/>
                 <span className="sr-only">AS7 ENGENHARIA</span>
-              </h1>
+              </span>
             </a>
             <div className="pt-1"><SocialIconsComponent /></div>
           </div>
@@ -228,10 +261,10 @@ export default function As7PageModern() {
            <div className="absolute bottom-0 right-0 translate-x-1/2 transform rounded-full bg-gradient-to-br from-teal-100 to-transparent opacity-40 dark:from-teal-900 dark:opacity-20 blur-3xl w-96 h-96 z-0"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-50 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-50 mb-6 leading-tight">
               Solução Completa em<br />
-              <TypingEffect />
-            </h2>
+              <span className="text-indigo-600 dark:text-indigo-400">Saúde e Segurança do Trabalho</span>
+            </h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
               Garantimos a proteção da sua equipe e a conformidade legal da sua empresa com agilidade e expertise técnica.
             </p>
@@ -250,7 +283,7 @@ export default function As7PageModern() {
         <section id="servicos" className="py-20 bg-gray-50 dark:bg-zinc-800/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h3 className="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">O Que Fazemos</h3>
+              <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">O Que Fazemos</p>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Nossas Áreas de Atuação</h2>
             </div>
 
@@ -295,7 +328,7 @@ export default function As7PageModern() {
                     </div>
                     <div className="order-1 md:order-2 relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-xl">
                          {/* Usando uma das suas imagens originais como destaque */}
-                        <img src="/gcomp.png" alt="Gestão Completa SST" className="w-full h-full object-cover" />
+                        <img src="/gcomp.png" alt="Equipe da AS7 Engenharia realizando gestão de segurança e saúde do trabalho (SST)" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         <div className="absolute bottom-6 left-6 text-white p-4">
                           <p className="font-bold text-xl">Sua empresa em conformidade.</p>
@@ -306,6 +339,42 @@ export default function As7PageModern() {
          </section>
 
 
+        {/* --- SEÇÃO DE LINKS INTERNOS E FAQ (SEO + arquitetura multi-page) --- */}
+        <section className="py-20 bg-white dark:bg-zinc-900">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">Na íntegra</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Conheça nossas soluções em SST</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+              {internalLinks.map((item) => (
+                <a key={item.href} href={item.href} className="group block bg-gray-50 dark:bg-zinc-800 p-6 rounded-2xl border border-gray-100 dark:border-zinc-700 hover:border-indigo-300 hover:shadow-lg transition duration-300">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">{item.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                  <span className="inline-block mt-3 text-sm font-semibold text-indigo-600 dark:text-indigo-400">Saiba mais →</span>
+                </a>
+              ))}
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-10">
+                <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">Dúvidas frequentes</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Perguntas frequentes sobre SST</h2>
+              </div>
+              <div className="space-y-4">
+                {faqs.map((item) => (
+                  <details key={item.q} className="group bg-gray-50 dark:bg-zinc-800 rounded-xl border border-gray-100 dark:border-zinc-700 overflow-hidden">
+                    <summary className="cursor-pointer list-none px-6 py-4 font-semibold text-gray-900 dark:text-white flex items-center justify-between gap-4">
+                      {item.q}
+                      <span className="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <p className="px-6 pb-5 text-gray-600 dark:text-gray-300 leading-relaxed">{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
         {/* --- SEÇÃO DE CONTATO (Formulário em destaque) --- */}
         <section id="contato" className="py-24 relative overflow-hidden">
           {/* Fundo gradiente sutil para destacar a seção de contato */}
@@ -373,6 +442,8 @@ export default function As7PageModern() {
           </div>
         </section>
 
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeServicesJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }} />
       </main>
 
       {/* 3. RODAPÉ (Footer) - IDÊNTICO AO ORIGINAL */}
